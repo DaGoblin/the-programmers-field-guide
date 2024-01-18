@@ -38,8 +38,23 @@ This Article will show you how to setup your Raspberry Pi software including:
 
 ## Install Raspberry Pi OS
 
-Test
-
+1. Insert the micro SD card into the Raspberry Pi and power on. (see [Build my Raspberry Pi](./1-0-pi-computer.md) for setup instructions)
+1. On the Welcome screen click next.
+1. Set your country, language and time zone and click next.
+    - For Australia click use US keyboard layout.
+![Image showing the Raspberry Pi Set country, language and time zone screen](./images/1-2-setup-pi-SetCountry.png)
+1. Set your username and password, click next.
+![Image showing the Raspberry Pi Set username and password screen](./images/1-2-setup-pi-CreateUser.png)
+1. Optional Select Wi-Fi network and enter password, click next.
+![Image showing the Raspberry Pi Set Wi-Fi screen](./images/1-2-setup-pi-SetWifi.png)
+1. Select your preferred Browser Chromium or Firefox, Click next.
+![Image showing the Raspberry Pi Set browser screen](./images/1-2-setup-pi-SetBrowser.png)
+1. Optional Update Software, Click next.
+    - **Note** This Process will take some time click skip to perform this task later.
+![Image showing the Raspberry Pi Update Software screen](./images/1-2-setup-pi-UpdateSoftware.png)
+1. Pi will now restart.
+1. After the reboot you will be presented with the Raspberry Pi Desktop. OS Install Complete.
+![Image showing the Raspberry Pi Desktop](./images/1-2-setup-pi-Desktop.png)
 <!-- ## Going Hard Core! Boot to the terminal
 
 ## Switch to Zsh
