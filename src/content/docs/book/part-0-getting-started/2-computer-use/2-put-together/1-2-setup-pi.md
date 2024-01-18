@@ -21,20 +21,20 @@ This Article will show you how to setup your Raspberry Pi software including:
     - Recommend at least 16 GB micro SD card
 1. Open the Raspberry Pi Imager.
 1. Click CHOOSE OS.
-  ![Image of Raspberry Pi Imager](./images/1-2-setup-pi-RaspberryPiImager.png)
+  ![Image of Raspberry Pi Imager](./images/setup-pi/1-2-setup-pi-RaspberryPiImager.png)
 1. Select Raspberry Pi OS (64b-bit)
-  ![Image Showing the Raspberry Pi Imager select OS screen](./images/1-2-setup-pi-SelectOS.png)
+  ![Image Showing the Raspberry Pi Imager select OS screen](./images/setup-pi/1-2-setup-pi-SelectOS.png)
 1. Click storage and select the micro SD card and click next.
     - **WARNING**: Make sure you select the correct storage device. Selecting the wrong device will result in the data on that device being erased.
     - In the image we are using a 32 GB micro SD card connected via a USB SD card reader.
-  ![Image Showing the Raspberry Pi Imager select storage screen](./images/1-2-setup-pi-SelectStorage.png)
+  ![Image Showing the Raspberry Pi Imager select storage screen](./images/setup-pi/1-2-setup-pi-SelectStorage.png)
 1. Click `No` to the question "Would you like to apply OS customisation setting?
     - Optionally you can click edit settings to preconfigure options like the hostname, password, and Wi-Fi settings. Click yes if you want to do this.
 1. Click `Yes` to the question Are you sure you want to continue?
     - **WARNING**: This will erase all data on the selected storage device.
 1. Wait until the Raspberry Pi Imager has Downloaded, written and verified the image on micro SD card. (This may take a while)
 1. Click continue and remove the micro SD card from your computer.
-    ![Image showing the Raspberry Pi Imager has completed writing to the SD card](./images/1-2-setup-pi-Complete.png)
+    ![Image showing the Raspberry Pi Imager has completed writing to the SD card](./images/setup-pi/1-2-setup-pi-Complete.png)
 
 ## Install Raspberry Pi OS
 
@@ -42,19 +42,49 @@ This Article will show you how to setup your Raspberry Pi software including:
 1. On the Welcome screen click next.
 1. Set your country, language and time zone and click next.
     - For Australia click use US keyboard layout.
-![Image showing the Raspberry Pi Set country, language and time zone screen](./images/1-2-setup-pi-SetCountry.png)
+![Image showing the Raspberry Pi Set country, language and time zone screen](./images/setup-pi/1-2-setup-pi-SetCountry.png)
 1. Set your username and password, click next.
-![Image showing the Raspberry Pi Set username and password screen](./images/1-2-setup-pi-CreateUser.png)
+![Image showing the Raspberry Pi Set username and password screen](./images/setup-pi/1-2-setup-pi-CreateUser.png)
 1. Optional Select Wi-Fi network and enter password, click next.
-![Image showing the Raspberry Pi Set Wi-Fi screen](./images/1-2-setup-pi-SetWifi.png)
+![Image showing the Raspberry Pi Set Wi-Fi screen](./images/setup-pi/1-2-setup-pi-SetWifi.png)
 1. Select your preferred Browser Chromium or Firefox, Click next.
-![Image showing the Raspberry Pi Set browser screen](./images/1-2-setup-pi-SetBrowser.png)
+![Image showing the Raspberry Pi Set browser screen](./images/setup-pi/1-2-setup-pi-SetBrowser.png)
 1. Optional Update Software, Click next.
     - **Note** This Process will take some time click skip to perform this task later.
-![Image showing the Raspberry Pi Update Software screen](./images/1-2-setup-pi-UpdateSoftware.png)
+![Image showing the Raspberry Pi Update Software screen](./images/setup-pi/1-2-setup-pi-UpdateSoftware.png)
 1. Pi will now restart.
 1. After the reboot you will be presented with the Raspberry Pi Desktop. OS Install Complete.
-![Image showing the Raspberry Pi Desktop](./images/1-2-setup-pi-Desktop.png)
+![Image showing the Raspberry Pi Desktop](./images/setup-pi/1-2-setup-pi-Desktop.png)
+
+## Setup Raspberry Pi OS
+
+*Let's get your Raspberry Pi ready to start coding*
+This section will go through all the steps to install the required Applications and Tools that you will need to code in C# and C++ with SplashKit. 
+To make things easier we have an automated script for fresh installs that will install all the required tools and applications for you or you can follow the manual steps below.
+
+### Automated Setup
+
+This script will install the following applications and tools:
+- Visual Studio Code
+  - C/C++ Extension
+  - C# Extension
+- .NET SDK
+- SplashKit
+  - SplashKit Global
+- wget
+- git
+- curl
+- clang
+
+1. Open the Terminal.
+   *Click the Terminal icon in the task bar or press `Ctrl + Alt + T`* ![Image Showing the Terminal Icon](./images/setup-pi/1-2-setup-pi-Terminal_Icon.png)
+2. Run the following command
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/scripts/Linux_Pi_InstallScript.sh)
+```
+
+
 <!-- ## Going Hard Core! Boot to the terminal
 
 ## Switch to Zsh
