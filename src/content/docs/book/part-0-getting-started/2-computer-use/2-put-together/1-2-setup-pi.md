@@ -59,6 +59,7 @@ This Article will show you how to setup your Raspberry Pi software including:
 ## Setup Raspberry Pi OS
 
 *Let's get your Raspberry Pi ready to start coding*
+
 This section will go through all the steps to install the required Applications and Tools that you will need to code in C# and C++ with SplashKit. 
 To make things easier we have an automated script for fresh installs that will install all the required tools and applications for you or you can follow the manual steps below.
 

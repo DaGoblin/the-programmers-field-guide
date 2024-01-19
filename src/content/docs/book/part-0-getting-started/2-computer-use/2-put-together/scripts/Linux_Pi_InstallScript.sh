@@ -105,7 +105,7 @@ fi
 if command -v code &> /dev/null; then
     echo "VS Code already installed."
 elif [[ "$no_vscode" == false ]]; then
-    if [["$platform" == "aarch64"]]; then
+    if [[ "$platform" == "aarch64" ]]; then
     # Install VS Code Rasbery PI environment
     echo "Installing VS Code Rasbery PI environment..."
     sudo apt install code
@@ -148,7 +148,9 @@ fi
 echo "Installing Splashkit..."
 
 bash <(curl -s $splashkit_url)
+export PATH=$PATH:~/.splashkit
 source ~/.bashrc
+
 #run with yes input to answer yes to apt-get request
 yes | skm linux install
 
@@ -166,6 +168,8 @@ if [[ "$no_dotnet" == false ]]; then
         curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin
         echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
         echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
+        # export DOTNET_ROOT=$HOME/.dotnet
+        # export PATH=$PATH:$HOME/.dotnet
         source ~/.bashrc
     fi
 fi
