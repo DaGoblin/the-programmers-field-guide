@@ -180,17 +180,18 @@ fi
 
 # Add Programers Feild guide to Menu (Pi Only)
 if [[ "$platform" == "aarch64" ]]; then
+
     echo "Adding Programers Feild guide to Menu"
+    curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/public/favicon.svg" -o /usr/share/pixmaps/feildguide.svg 
+
     touch /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
     echo "[Desktop Entry]" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
     echo "Type=Application" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
     echo "Name=Programmers Field Guide" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
     echo "TryExec=/usr/bin/x-www-browser" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
     echo "Exec=/usr/bin/x-www-browser https://programmers.guide/" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
-    echo "Icon=/usr/share/icons/Adwaita/256x256/apps/web-browser.png" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
+    echo "Icon=/usr/share/pixmaps/feildguide.svg" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
     echo "Categories=Programming;" >> /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
-
-    
 fi
 
 
