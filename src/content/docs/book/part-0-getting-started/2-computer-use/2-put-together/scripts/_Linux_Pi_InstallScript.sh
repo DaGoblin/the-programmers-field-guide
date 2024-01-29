@@ -10,6 +10,7 @@ no_clang=false
 no_sudo_check=false
 no_dotnet=false
 splashkit_url="https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh"
+background_light=false
 
 # Check platform
 platform=$(uname -m)
@@ -42,6 +43,7 @@ function display_help() {
    echo "--no_clang      Do not install clang."
    echo "--no_dotnet     Do not install .NET."
    echo "--splashkit_url=<url>  Specify the url to the splashkit install script."
+   echo "--background_light     Specify if the backgound image is light. Defualt is dark."
    echo
 }
 
@@ -70,6 +72,9 @@ for arg in "$@"; do
             else
                 splashkit_url="${arg#*=}"
             fi
+            ;;
+        --background_light)
+            background_light=true
             ;;
         -h|--help)
             display_help
@@ -196,7 +201,25 @@ if [[ "$platform" == "aarch64" ]]; then
 
 fi
 
+if [[ "$platform" == "aarch64" ]]; then
+    # sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+    # sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
 
+    # temp for testing
+    sudo curl -s "https://raw.githubusercontent.com/DaGoiblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+    sudo curl -s "https://raw.githubusercontent.com/DaGoiblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+   
+    echo "Setting background image"
+    if [[ "$background_light" == true ]]; then
+        echo "Setting background image to light"
+        pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+    else
+        echo "Setting background image to dark"
+        pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+    fi
+fi
 
 echo "Installation Complete"
 echo "Please restart your terminal to use commands such as skm or dotnet"
+
+
