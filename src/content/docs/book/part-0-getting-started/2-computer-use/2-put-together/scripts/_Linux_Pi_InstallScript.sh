@@ -110,6 +110,9 @@ if ! command -v curl &> /dev/null; then
     sudo apt-get -y install curl
 fi
 
+
+
+
 # Check if VS Code is installed
 if command -v code &> /dev/null; then
     echo "VS Code already installed."
@@ -206,8 +209,8 @@ if [[ "$platform" == "aarch64" ]]; then
     # sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
 
     # temp for testing
-    sudo curl -s "https://raw.githubusercontent.com/DaGoiblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
-    sudo curl -s "https://raw.githubusercontent.com/DaGoiblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+    sudo curl -s "https://raw.githubusercontent.com/DaGoblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+    sudo curl -s "https://raw.githubusercontent.com/DaGoblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
    
     echo "Setting background image"
     if [[ "$background_light" == true ]]; then
