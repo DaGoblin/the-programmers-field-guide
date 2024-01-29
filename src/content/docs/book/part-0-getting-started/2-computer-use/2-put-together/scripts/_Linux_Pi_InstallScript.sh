@@ -191,7 +191,7 @@ if [[ "$platform" == "aarch64" ]]; then
     echo "TryExec=/usr/bin/x-www-browser" >> ~/programmers-field-guide.desktop
     echo "Exec=/usr/bin/x-www-browser https://programmers.guide/" >> ~/programmers-field-guide.desktop
     echo "Icon=/usr/share/pixmaps/feildguide.svg" >> ~/programmers-field-guide.desktop
-    echo "Categories=Programming;" >> ~/programmers-field-guide.desktop
+    echo "Categories=Development;" >> ~/programmers-field-guide.desktop
     sudo mv ~/programmers-field-guide.desktop /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
 
 fi
