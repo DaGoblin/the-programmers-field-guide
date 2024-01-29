@@ -43,7 +43,7 @@ function display_help() {
    echo "--no_clang      Do not install clang."
    echo "--no_dotnet     Do not install .NET."
    echo "--splashkit_url=<url>  Specify the url to the splashkit install script."
-   echo "--background_light     Specify if the backgound image is light. Defualt is dark."
+   echo "--background_light     Specify if the backgound image theme is light. Defualt is dark."
    echo
 }
 
