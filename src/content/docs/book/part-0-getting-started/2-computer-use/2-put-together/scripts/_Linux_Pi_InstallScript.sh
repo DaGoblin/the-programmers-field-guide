@@ -130,6 +130,7 @@ if [[ "$zsh" == true ]]; then
     fi
     # Set ZSH as default shell
     chsh -s $(which zsh)
+    chsh -s /usr/bin/zsh
 fi
 
 
@@ -225,13 +226,9 @@ if [[ "$platform" == "aarch64" ]]; then
 fi
 
 if [[ "$platform" == "aarch64" ]]; then
-    # sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
-    # sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+    sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+    sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
 
-    # temp for testing
-    sudo curl -s "https://raw.githubusercontent.com/DaGoblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
-    sudo curl -s "https://raw.githubusercontent.com/DaGoblin/the-programmers-field-guide/PiSoftwasrc/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpgre-Update/" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
-   
     echo "Setting background image"
     if [[ "$background_light" == true ]]; then
         echo "Setting background image to light"
@@ -242,18 +239,7 @@ if [[ "$platform" == "aarch64" ]]; then
     fi
 fi
 
-# Check if Firefox is installed
-if ! command -v firefox &> /dev/null; then
-    # Add favorite website to bookmarks
-    pkill firefox
-    echo 'user_pref("browser.toolbars.bookmarks.visibility", 1);' >> ~/.mozilla/firefox/*.default-release/prefs.js
-    firefox -CreateProfile "default"
-    firefox -P "default" -no-remote -url "https://programmers.guide" -a "Firefox"
-fi
-
-
-
-echo "Installation Complete"
+2echo "Installation Complete"
 echo "Please restart your terminal to use commands such as skm or dotnet"
 if [[ "$zsh" == true ]]; then
     echo "Please restart your Pi to use zsh"
