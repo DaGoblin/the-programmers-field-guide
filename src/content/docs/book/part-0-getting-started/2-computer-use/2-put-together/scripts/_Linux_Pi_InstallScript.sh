@@ -11,6 +11,7 @@ no_sudo_check=false
 no_dotnet=false
 splashkit_url="https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh"
 background_light=false
+zsh = false
 
 # Check platform
 platform=$(uname -m)
@@ -44,6 +45,7 @@ function display_help() {
    echo "--no_dotnet     Do not install .NET."
    echo "--splashkit_url=<url>  Specify the url to the splashkit install script."
    echo "--background_light     Specify if the backgound image theme is light. Defualt is dark."
+   echo "--zsh    Specify if you want to install zsh. Defualt is false."
    echo
 }
 
@@ -76,6 +78,9 @@ for arg in "$@"; do
         --background_light)
             background_light=true
             ;;
+        --zsh)
+            zsh=true
+            ;;
         -h|--help)
             display_help
             exit 0
@@ -91,6 +96,7 @@ done
 ###################################################################################################
 
  sudo apt-get update
+
 
 # Check if wget is installed
 if ! command -v wget &> /dev/null; then
@@ -110,7 +116,21 @@ if ! command -v curl &> /dev/null; then
     sudo apt-get -y install curl
 fi
 
+if [[ "$zsh" == true ]]; then
+    # Check if zsh is installed
+    if ! command -v zsh &> /dev/null; then
+        echo "zsh is not installed. Installing..."
+        sudo apt-get -y install zsh
+    fi
 
+    # Check if oh-my-zsh is installed
+    if [ ! -d ~/.oh-my-zsh ]; then
+        echo "oh-my-zsh is not installed. Installing..."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    fi
+    # Set ZSH as default shell
+    chsh -s $(which zsh)
+fi
 
 
 # Check if VS Code is installed
@@ -210,7 +230,7 @@ if [[ "$platform" == "aarch64" ]]; then
 
     # temp for testing
     sudo curl -s "https://raw.githubusercontent.com/DaGoblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
-    sudo curl -s "https://raw.githubusercontent.com/DaGoblin/the-programmers-field-guide/PiSoftware-Update/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+    sudo curl -s "https://raw.githubusercontent.com/DaGoblin/the-programmers-field-guide/PiSoftwasrc/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpgre-Update/" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
    
     echo "Setting background image"
     if [[ "$background_light" == true ]]; then
@@ -222,7 +242,21 @@ if [[ "$platform" == "aarch64" ]]; then
     fi
 fi
 
+# Check if Firefox is installed
+if ! command -v firefox &> /dev/null; then
+    # Add favorite website to bookmarks
+    pkill firefox
+    echo 'user_pref("browser.toolbars.bookmarks.visibility", 1);' >> ~/.mozilla/firefox/*.default-release/prefs.js
+    firefox -CreateProfile "default"
+    firefox -P "default" -no-remote -url "https://programmers.guide" -a "Firefox"
+fi
+
+
+
 echo "Installation Complete"
 echo "Please restart your terminal to use commands such as skm or dotnet"
+if [[ "$zsh" == true ]]; then
+    echo "Please restart your Pi to use zsh"
+fi
 
 
