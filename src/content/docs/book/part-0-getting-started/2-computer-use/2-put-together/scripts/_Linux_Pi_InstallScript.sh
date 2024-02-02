@@ -129,8 +129,7 @@ if [[ "$zsh" == true ]]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     fi
     # Set ZSH as default shell
-    chsh -s $(which zsh)
-    chsh -s /usr/bin/zsh
+    sudo chsh -s $(which zsh) $USER
 fi
 
 
@@ -239,7 +238,7 @@ if [[ "$platform" == "aarch64" ]]; then
     fi
 fi
 
-2echo "Installation Complete"
+echo "Installation Complete"
 echo "Please restart your terminal to use commands such as skm or dotnet"
 if [[ "$zsh" == true ]]; then
     echo "Please restart your Pi to use zsh"
