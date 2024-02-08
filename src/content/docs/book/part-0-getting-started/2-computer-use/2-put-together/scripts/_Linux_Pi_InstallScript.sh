@@ -11,8 +11,8 @@ no_sudo_check=false
 no_dotnet=false
 splashkit_url="https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh"
 background_light=false
-zsh = false
-no_fan = false
+zsh=false
+no_fan=false
 
 # Check platform
 platform=$(uname -m)
