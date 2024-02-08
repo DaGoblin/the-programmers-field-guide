@@ -254,7 +254,7 @@ fi
 if [[ "$platform" == "aarch64" ]]; then
     if [[ "$no_fan" == false ]]; then
         echo "Setting up fan control"
-        if ! grep -Fq "dtoverlay" /boot/config.txt; then
+        if ! grep -Fq "dtoverlay" /boot/firmware/config.txt; then
             echo "dtoverlay=gpio-fan,gpiopin=14,temp=60000" | sudo tee -a /boot/config.txt
         fi
 fi
