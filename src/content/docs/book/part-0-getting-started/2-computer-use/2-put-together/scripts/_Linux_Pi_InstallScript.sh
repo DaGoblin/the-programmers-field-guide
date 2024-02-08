@@ -12,6 +12,7 @@ no_dotnet=false
 splashkit_url="https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh"
 background_light=false
 zsh = false
+no_fan = false
 
 # Check platform
 platform=$(uname -m)
@@ -46,6 +47,7 @@ function display_help() {
    echo "--splashkit_url=<url>  Specify the url to the splashkit install script."
    echo "--background_light     Specify if the backgound image theme is light. Defualt is dark."
    echo "--zsh    Specify if you want to install zsh. Defualt is false."
+   echo "--no_fan On Pi Does not set fan control, Defulat is enabled 60 degrees"
    echo
 }
 
@@ -80,6 +82,9 @@ for arg in "$@"; do
             ;;
         --zsh)
             zsh=true
+            ;;
+        --no_fan)
+            no_fan=true
             ;;
         -h|--help)
             display_help
@@ -244,6 +249,14 @@ if [[ "$platform" == "aarch64" ]]; then
         echo "Setting background image to dark"
         pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
     fi
+fi
+
+if [[ "$platform" == "aarch64" ]]; then
+    if [[ "$no_fan" == false ]]; then
+        echo "Setting up fan control"
+        if ! grep -Fq "dtoverlay" /boot/config.txt; then
+            echo "dtoverlay=gpio-fan,gpiopin=14,temp=60000" | sudo tee -a /boot/config.txt
+        fi
 fi
 
 echo "Installation Complete"
