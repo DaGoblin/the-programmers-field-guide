@@ -130,6 +130,7 @@ if [[ "$zsh" == true ]]; then
     fi
     # Set ZSH as default shell
     sudo chsh -s $(which zsh) $USER
+    zsh
 fi
 
 
@@ -181,7 +182,7 @@ echo "Installing Splashkit..."
 
 bash <(curl -s $splashkit_url)
 export PATH=$PATH:~/.splashkit
-source ~/.bashrc
+
 
 #run with yes input to answer yes to apt-get request
 yes | skm linux install
@@ -198,11 +199,18 @@ if [[ "$no_dotnet" == false ]]; then
     if ! command -v dotnet &> /dev/null; then
         echo "Installing .NET..."
         curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin
-        echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
-        echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
-        # export DOTNET_ROOT=$HOME/.dotnet
-        # export PATH=$PATH:$HOME/.dotnet
-        source ~/.bashrc
+
+        if [[ ${SHELL} = "/bin/bash" ]] || [ ${SHELL} = "/usr/bin/bash" -a `uname` = Linux ] ; then
+            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
+            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc        
+            source ~/.bashrc
+        fi
+
+        if [[ ${SHELL} = "/bin/zsh" ]] || [ ${SHELL} = "/usr/bin/zsh" ] ; then
+            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.zshrc
+            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.zshrc
+            source ~/.zshrc
+        fi
     fi
 fi
 
