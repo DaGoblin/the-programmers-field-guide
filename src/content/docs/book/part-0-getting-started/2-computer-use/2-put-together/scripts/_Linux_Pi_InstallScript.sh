@@ -135,7 +135,6 @@ if [[ "$zsh" == true ]]; then
     fi
     # Set ZSH as default shell
     sudo chsh -s $(which zsh) $USER
-    zsh
 fi
 
 
@@ -186,6 +185,18 @@ fi
 echo "Installing Splashkit..."
 
 bash <(curl -s $splashkit_url)
+if command -v bash &> /dev/null; then
+    if ! grep -q 'export PATH=$PATH:~/.splashkit' ~/.bashrc; then
+        echo 'export PATH=$PATH:~/.splashkit' >> ~/.bashrc
+    fi
+fi
+
+if command -v zsh &> /dev/null; then
+    if ! grep -q 'export PATH=$PATH:~/.splashkit' ~/.zshrc; then
+        echo 'export PATH=$PATH:~/.splashkit' >> ~/.zshrc
+    fi
+fi
+
 export PATH=$PATH:~/.splashkit
 
 
@@ -205,15 +216,23 @@ if [[ "$no_dotnet" == false ]]; then
         echo "Installing .NET..."
         curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin
 
-        if [[ ${SHELL} = "/bin/bash" ]] || [ ${SHELL} = "/usr/bin/bash" -a `uname` = Linux ] ; then
-            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
-            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc        
+        if command -v bash &> /dev/null; then
+            if ! grep -q 'export DOTNET_ROOT=$HOME/.dotnet' ~/.bashrc; then
+                echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
+            fi
+            if ! grep -q 'export PATH=$PATH:$HOME/.dotnet' ~/.bashrc; then
+                echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
+            fi
             source ~/.bashrc
         fi
 
-        if [[ ${SHELL} = "/bin/zsh" ]] || [ ${SHELL} = "/usr/bin/zsh" ] ; then
-            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.zshrc
-            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.zshrc
+        if command -v zsh &> /dev/null; then
+            if ! grep -q 'export DOTNET_ROOT=$HOME/.dotnet' ~/.zshrc; then
+                echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.zshrc
+            fi
+            if ! grep -q 'export PATH=$PATH:$HOME/.dotnet' ~/.zshrc; then
+                echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.zshrc
+            fi
             source ~/.zshrc
         fi
     fi
@@ -262,7 +281,7 @@ fi
 echo "Installation Complete"
 echo "Please restart your terminal to use commands such as skm or dotnet"
 if [[ "$zsh" == true ]]; then
-    echo "Please restart your Pi to use zsh"
+    zsh
 fi
 
 
