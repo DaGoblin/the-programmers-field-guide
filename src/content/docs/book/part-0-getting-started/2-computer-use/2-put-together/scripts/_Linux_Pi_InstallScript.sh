@@ -280,7 +280,7 @@ fi
 echo "Installation Complete"
 echo "Please restart your terminal to use commands such as skm or dotnet"
 if [[ "$zsh" == true ]]; then
-    zsh
+    Please Reboot your Raspberry Pi to enable ZSH
 fi
 
 
