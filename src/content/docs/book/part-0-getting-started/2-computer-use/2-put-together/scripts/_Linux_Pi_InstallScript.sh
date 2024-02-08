@@ -129,8 +129,7 @@ if [[ "$zsh" == true ]]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     fi
     # Set ZSH as default shell
-    chsh -s $(which zsh)
-    chsh -s /usr/bin/zsh
+    chsh -s $(which zsh) $USER
 fi
 
 
@@ -199,11 +198,17 @@ if [[ "$no_dotnet" == false ]]; then
     if ! command -v dotnet &> /dev/null; then
         echo "Installing .NET..."
         curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin
-        echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
-        echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
-        # export DOTNET_ROOT=$HOME/.dotnet
-        # export PATH=$PATH:$HOME/.dotnet
-        source ~/.bashrc
+        if [[ ${SHELL} = "/bin/bash" ]] || [ ${SHELL} = "/usr/bin/bash" -a `uname` = Linux ] ; then
+            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
+            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc        
+            source ~/.bashrc
+        fi
+
+        if [[ ${SHELL} = "/bin/zsh" ]] || [ ${SHELL} = "/usr/bin/zsh" ] ; then
+            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.zshrc
+            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.zshrc
+            source ~/.zshrc
+        fi
     fi
 fi
 
