@@ -274,6 +274,7 @@ if [[ "$platform" == "aarch64" ]]; then
         if ! grep -Fq "dtoverlay=gpio-fan" /boot/firmware/config.txt; then
             echo "dtoverlay=gpio-fan,gpiopin=14,temp=60000" | sudo tee -a /boot/config.txt
         fi
+    fi
 fi
 
 echo "Installation Complete"
