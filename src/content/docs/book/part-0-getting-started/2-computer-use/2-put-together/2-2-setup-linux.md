@@ -8,17 +8,38 @@ sidebar:
 
 **TODO:** Phil to update
 
-*Let's get your Raspberry Pi ready to start coding!*
+Linux is an open-source operating system that is widely used for programming and development. It comes in many different distributions (distros) this guide will focus on debian which is the base for many popular distros such as Ubuntu and Raspberry Pi OS. If you are using a different linux distro the steps may be slightly different.
 
-This section will go through all the steps to install the required Applications and Tools that you will need to code in C# and C++ with SplashKit.
+This section will go through all the steps to install the required Applications and Tools that you will need to code in C# and C++ with SplashKit on Debian and Raspberry Pi. 
 
-To make things easier we have an automated script for fresh installs that will install all the required tools and applications for you, or you can follow the manual steps below.
+To make things easier we have an automated script for fresh installs that will install all the required tools and applications for you, or you can follow the manual steps.
 
-:::note[How do I open the Terminal on my Pi?]
-*Click the Terminal icon in the task bar (shown in the Red Box below), or press `Ctrl + Alt + T`*
+:::note[How do I open the Terminal?]
+To open the Terminal on Debian click activities in the top left of the screen and type "Terminal" in the search bar then click on the Terminal icon.
+![Gift showing how to open the Terminal](/gifs/setup-linux/OpenTerminal.gif)
 
-![Image Showing the Terminal Icon](./images/setup-pi/1-2-setup-pi-Terminal_Icon.png)
+*Using a Raspberry Pi? Click the Terminal icon in the task bar (shown in the Red Box below), or press `Ctrl + Alt + T`*
 
+![Image Showing the Terminal Icon](./images/setup-linux/1-2-setup-pi-Terminal_Icon.png)
+:::
+
+:::tip[Do you sudo?]
+`sudo` is a command that allows you to run a program with superuser privileges and is often required for installing software. On Debian the main user is not added to the sudoers file by default.
+
+*On a Raspberry Pi the main user is added to the sudoers file, so this step is not required*
+
+The following commands will let you check if your user is in the suders group, and if required add it. You will need to reboot your computer after adding your user to the sudoers group.
+
+*You will need to know your root user password* (*replace `username` with your username*):
+
+```bash
+groups username
+su
+sudo usermod -aG sudo username
+exit
+groups username
+```
+![Image showing the above commands run in the terminal](./images/setup-linux/Setup_sudo.png)
 :::
 
 ### Automated Setup
@@ -64,7 +85,24 @@ curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide
 
 ### Manual Setup Steps
 
-If you choose not to use the automated set up above, or are experience issues with this, you can follow these steps below:
+If you choose not to use the automated set up above, or are experience issues, you can follow these steps below:
+
+:::danger[Do you have git and curl installed?]
+
+A number of the commands in the manual setup require `git` and `curl` to be installed to function correctly. To check if they are installed on your system Type `curl` then `git` in to the terminal and press enter after each.
+
+If you see the following error messages you will need to install the missing programs.
+
+![image showing curl and git command not found error](./images/setup-linux/curlGitNotFound.png)
+
+To install curl and git run the following commands in the Terminal (if only one is required you can delete the other from the command):
+
+```bash
+sudo apt update
+sudo apt install curl git -y
+```
+
+:::
 
 ### 1. Install the SplashKit SDK
 
@@ -83,9 +121,9 @@ bash <(curl -s https://raw.githubusercontent.com/splashkit/skm/master/install-sc
 ```
 
 :::danger[My install command is not working. Help!]
-What if the command above does nothing? (as shown in the image below)
 
-![A Terminal window showing no response to bash install command](./images/setup-pi/1-2-setup-pi-SplashKitCommandFailed.png)
+What if the command above does nothing? (as shown in the image below)
+![A Terminal window showing no response to bash install command](./images/setup-linux/SplashKitCommandFailed.png)
 
 Make sure your computer is connected to the internet.
 
@@ -95,7 +133,7 @@ Download the install script locally by right-clicking on [this link](https://raw
 To run the downloaded shell script, open the Terminal and navigate to the folder where you saved the file and then use the command: `bash skm-install.sh`.  
 For example, if the file is in your *Downloads* folder:
 
-![A Terminal window running local install script file](./images/setup-pi/1-2-setup-pi-SplashKitManualInstall.png)
+![A Terminal window running local install script file](./images/setup-linux/splashKitManualInstall.png)
 
 :::
 
@@ -105,9 +143,9 @@ Close and reopen the Terminal, then run the command below to build SplashKit on 
 skm linux install
 ```
 
-When prompted, type `y` and press enter to confirm the installation.
+If prompted enter your password and type `y` and press enter to confirm the installation.
 
-![Gif showing skm installing in Terminal](/public/gifs/setup-pi/1-2-setup-pi-SplashkitInstall.gif)
+![Gif showing skm installing in Terminal](/gifs/setup-linux/SkmLinuxInstall.gif)
 
 :::note
 This may take a while (approx. 10 mins).
@@ -137,6 +175,7 @@ Visual Studio Code, also commonly known as *VS Code* or just *Code*, is a powerf
 Once you have your code project set up, Visual Studio Code will be the main program you will use to write, build, run and debug your code.
 :::
 
+:::danger[Using the Raspberry Pi?]
 Run the following command in the Terminal to install Visual Studio Code:
 
 ```bash
@@ -144,6 +183,16 @@ sudo apt install code
 ```
 
 ![Image showing Visual Studio installation command](./images/setup-pi/1-2-setup-pi-VSCodeInstall.png)
+:::
+
+On Debian running the following commands will download and then install Visual Studio Code:
+
+```bash
+wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
+sudo dpkg -i vscode.deb
+sudo apt-get install -f
+rm vscode.deb
+```
 
 :::tip[Open Code from Terminal]
 You can open Visual Studio Code from the Terminal by typing `code` and pressing enter.  
@@ -254,20 +303,20 @@ sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-![gif showing the install of oh=my=zsh](/public/gifs/setup-pi/1-2-setup-pi-OMZ-Install.gif)
+![gif showing the install of oh=my=zsh](/gifs/setup-pi/1-2-setup-pi-OMZ-Install.gif)
 
 Answer `y` to the question `Do you want to change your default shell to zsh?`
 
 Add SplashKit and dotnet to the PATHs to zsh
 
 ```bash
-echo "export PATH=$PATH:$HOME/.dotnet" >> ~/.zshrc
-echo "export DOTNET_ROOT=$HOME/.dotnet" >> ~/.zshrc
-echo "export PATH=$PATH:$HOME/.splashkit" >> ~/.zshrc
+echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.zshrc
+echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.zshrc
+echo 'export PATH=$PATH:$HOME/.splashkit' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-:::note[You may need to restart the Pi for the terminal to update]
+:::note[You may need to restart the system for the terminal to update]
 :::
 
 ### Plugins
@@ -279,7 +328,7 @@ To install a plugin you need to add it to the plugins list in the `~/.zshrc` fil
 
 Using `autojump` as an example:
 
-![gif showing the installation of autojump](/public/gifs/setup-pi/1-2-setup-pi-AutoJump.gif)
+![gif showing the installation of autojump](/gifs/setup-pi/1-2-setup-pi-AutoJump.gif)
 
 First you will install it with:
 
@@ -299,3 +348,88 @@ Use a space to separate the plugins as shown below:
 ```bash
 plugins=(git autojump)
 ```
+
+Save and close the file.
+Then run the following command to update the terminal:
+
+```bash
+source ~/.zshrc
+```
+
+### Add Shortcut for the Programmers Field Guide
+
+To add a shortcut to the Programmers Field Guide to the Activities  run the following commands in the Terminal:
+***On the Raspberry Pi it will appear under programming in the menu***
+
+```bash
+    echo "Adding Programers Feild guide to Menu"
+    sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/public/favicon.svg" -o /usr/share/pixmaps/feildguide.svg 
+
+    touch ~/programmers-field-guide.desktop
+    echo "[Desktop Entry]" >> ~/programmers-field-guide.desktop
+    echo "Type=Application" >> ~/programmers-field-guide.desktop
+    echo "Name=Programmers Field Guide" >> ~/programmers-field-guide.desktop
+    echo "TryExec=/usr/bin/x-www-browser" >> ~/programmers-field-guide.desktop
+    echo "Exec=/usr/bin/x-www-browser https://programmers.guide/" >> ~/programmers-field-guide.desktop
+    echo "Icon=/usr/share/pixmaps/feildguide.svg" >> ~/programmers-field-guide.desktop
+    echo "Categories=Development;" >> ~/programmers-field-guide.desktop
+    sudo mv ~/programmers-field-guide.desktop /usr/share/applications/programmers-field-guide.desktop
+```
+
+### Desktop Background
+
+To customise the desktop background right click anywhere on the desktop and select change Background (***Properties on the Raspberry Pi***).
+Then select the image or theme you want to use as your background.
+![image showing the appearance menu](./images/setup-linux/AppearanceMenu.png)
+
+Debian also has Light/Dark mode you can toggle dark mode by clicking on the icon in the top right of the screen and selecting the mode you want to use.
+
+![image showing quick setting with dark mode selected](./images/setup-linux/QuickSettingMenu.png)
+
+#### Set Deakin Desktop Background (Debian)
+
+For Debian run the following command in the Terminal to download the Deakin background images and set them for dark and light mode:
+
+```bash
+ curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o ~/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-dark.jpg
+ curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o ~/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-light.jpg
+
+gsettings set org.gnome.desktop.background picture-uri file://$HOME/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-light.jpg
+gsettings set org.gnome.desktop.background picture-uri-dark file://$HOME/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-dark.jpg
+
+```
+
+#### Set Deakin Desktop Background (Raspberry Pi)
+
+For the Raspberry Pi run the following command in the Terminal to download the Deakin background images and pick which one you want to use:
+
+```bash
+    sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+    sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+```
+
+for the light image run the following command:
+
+```bash
+    sudo pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+```
+
+for the dark image run the following command:
+
+```bash
+    sudo pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+```
+
+### Raspberry Pi Set Fan Control
+
+If you are using a Raspberry Pi with a fan with GPIO control you configure it to turn on when the CPU reaches a certain temperature.
+Click the menu and goto `Preferences` then `Raspberry Pi Configuration` and select the `Performance` tab.  
+
+![image showing the Pi Configuration menu](./images/setup-linux/PiMenu.png)
+
+Toggle the fan on select the GPIO pin you are using and set the temperature you want the fan to turn on at.
+If you followed our Pi setup guide you will be using GPIO 14 and recommend setting the fan to turn on at 60 degrees.
+
+![image showing the performance menu ](./images/setup-linux/PiPerformanceSettings.png)
+
+

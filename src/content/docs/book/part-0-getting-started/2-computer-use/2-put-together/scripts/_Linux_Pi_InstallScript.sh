@@ -11,7 +11,8 @@ no_sudo_check=false
 no_dotnet=false
 splashkit_url="https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh"
 background_light=false
-zsh = false
+zsh=false
+no_fan=false
 
 # Check platform
 platform=$(uname -m)
@@ -46,6 +47,7 @@ function display_help() {
    echo "--splashkit_url=<url>  Specify the url to the splashkit install script."
    echo "--background_light     Specify if the backgound image theme is light. Defualt is dark."
    echo "--zsh    Specify if you want to install zsh. Defualt is false."
+   echo "--no_fan On Pi Does not set fan control, Defulat is enabled 60 degrees"
    echo
 }
 
@@ -80,6 +82,9 @@ for arg in "$@"; do
             ;;
         --zsh)
             zsh=true
+            ;;
+        --no_fan)
+            no_fan=true
             ;;
         -h|--help)
             display_help
@@ -129,7 +134,7 @@ if [[ "$zsh" == true ]]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     fi
     # Set ZSH as default shell
-    chsh -s $(which zsh) $USER
+    sudo chsh -s $(which zsh) $USER
 fi
 
 
@@ -180,8 +185,20 @@ fi
 echo "Installing Splashkit..."
 
 bash <(curl -s $splashkit_url)
+if command -v bash &> /dev/null; then
+    if ! grep -q 'export PATH=$PATH:~/.splashkit' ~/.bashrc; then
+        echo 'export PATH=$PATH:~/.splashkit' >> ~/.bashrc
+    fi
+fi
+
+if command -v zsh &> /dev/null; then
+    if ! grep -q 'export PATH=$PATH:~/.splashkit' ~/.zshrc; then
+        echo 'export PATH=$PATH:~/.splashkit' >> ~/.zshrc
+    fi
+fi
+
 export PATH=$PATH:~/.splashkit
-source ~/.bashrc
+
 
 #run with yes input to answer yes to apt-get request
 yes | skm linux install
@@ -198,38 +215,42 @@ if [[ "$no_dotnet" == false ]]; then
     if ! command -v dotnet &> /dev/null; then
         echo "Installing .NET..."
         curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin
-        if [[ ${SHELL} = "/bin/bash" ]] || [ ${SHELL} = "/usr/bin/bash" -a `uname` = Linux ] ; then
-            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
-            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc        
-            source ~/.bashrc
+
+        if command -v bash &> /dev/null; then
+            if ! grep -q 'export DOTNET_ROOT=$HOME/.dotnet' ~/.bashrc; then
+                echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
+            fi
+            if ! grep -q 'export PATH=$PATH:$HOME/.dotnet' ~/.bashrc; then
+                echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
+            fi
         fi
 
-        if [[ ${SHELL} = "/bin/zsh" ]] || [ ${SHELL} = "/usr/bin/zsh" ] ; then
-            echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.zshrc
-            echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.zshrc
-            source ~/.zshrc
+        if command -v zsh &> /dev/null; then
+            if ! grep -q 'export DOTNET_ROOT=$HOME/.dotnet' ~/.zshrc; then
+                echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.zshrc
+            fi
+            if ! grep -q 'export PATH=$PATH:$HOME/.dotnet' ~/.zshrc; then
+                echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.zshrc
+            fi
         fi
     fi
 fi
 
-# Add Programers Feild guide to Menu (Pi Only)
-if [[ "$platform" == "aarch64" ]]; then
+# Add Programers Feild guide to Menu
+echo "Adding Programers Feild guide to Menu"
+sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/public/favicon.svg" -o /usr/share/pixmaps/feildguide.svg 
 
-    echo "Adding Programers Feild guide to Menu"
-    sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/public/favicon.svg" -o /usr/share/pixmaps/feildguide.svg 
+touch ~/programmers-field-guide.desktop
+echo "[Desktop Entry]" >> ~/programmers-field-guide.desktop
+echo "Type=Application" >> ~/programmers-field-guide.desktop
+echo "Name=Programmers Field Guide" >> ~/programmers-field-guide.desktop
+echo "TryExec=/usr/bin/x-www-browser" >> ~/programmers-field-guide.desktop
+echo "Exec=/usr/bin/x-www-browser https://programmers.guide/" >> ~/programmers-field-guide.desktop
+echo "Icon=/usr/share/pixmaps/feildguide.svg" >> ~/programmers-field-guide.desktop
+echo "Categories=Development;" >> ~/programmers-field-guide.desktop
+sudo mv ~/programmers-field-guide.desktop /usr/share/applications/programmers-field-guide.desktop
 
-    touch ~/programmers-field-guide.desktop
-    echo "[Desktop Entry]" >> ~/programmers-field-guide.desktop
-    echo "Type=Application" >> ~/programmers-field-guide.desktop
-    echo "Name=Programmers Field Guide" >> ~/programmers-field-guide.desktop
-    echo "TryExec=/usr/bin/x-www-browser" >> ~/programmers-field-guide.desktop
-    echo "Exec=/usr/bin/x-www-browser https://programmers.guide/" >> ~/programmers-field-guide.desktop
-    echo "Icon=/usr/share/pixmaps/feildguide.svg" >> ~/programmers-field-guide.desktop
-    echo "Categories=Development;" >> ~/programmers-field-guide.desktop
-    sudo mv ~/programmers-field-guide.desktop /usr/share/raspi-ui-overrides/applications/programmers-field-guide.desktop
-
-fi
-
+#Set Background
 if [[ "$platform" == "aarch64" ]]; then
     sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
     sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
@@ -242,12 +263,30 @@ if [[ "$platform" == "aarch64" ]]; then
         echo "Setting background image to dark"
         pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
     fi
+else if [[ "$platform" == "x86_64" ]]; then
+    curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o ~/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-dark.jpg
+    curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o ~/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-light.jpg
+    gsettings set org.gnome.desktop.background picture-uri file://$HOME/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-light.jpg
+    gsettings set org.gnome.desktop.background picture-uri-dark file://$HOME/.local/share/backgrounds/Deakin-Backgound-1920x1080-outline-dark.jpg
+    if [[ "$background_light" == true ]]; then
+        gsettings set org.gnome.desktop.interface color-scheme 'default' 
+    else
+        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    fi
 fi
 
-2echo "Installation Complete"
+# Set up fan control on Pi
+if [[ "$platform" == "aarch64" ]]; then
+    if [[ "$no_fan" == false ]]; then
+        echo "Setting up fan control"
+        if ! grep -Fq "dtoverlay=gpio-fan" /boot/firmware/config.txt; then
+            echo "dtoverlay=gpio-fan,gpiopin=14,temp=60000" | sudo tee -a /boot/config.txt
+        fi
+    fi
+fi
+
+echo "Installation Complete"
 echo "Please restart your terminal to use commands such as skm or dotnet"
 if [[ "$zsh" == true ]]; then
-    echo "Please restart your Pi to use zsh"
+    echo "Please Reboot your Raspberry Pi to enable ZSH"
 fi
-
-
