@@ -251,6 +251,7 @@ echo "Categories=Development;" >> ~/programmers-field-guide.desktop
 sudo mv ~/programmers-field-guide.desktop /usr/share/applications/programmers-field-guide.desktop
 
 #Set Background
+echo "Setting background image"
 if [[ "$platform" == "aarch64" ]]; then
     sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-dark.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
     sudo curl -s "https://raw.githubusercontent.com/splashkit/the-programmers-field-guide/main/src/content/docs/book/part-0-getting-started/2-computer-use/2-put-together/images/setup-pi/Deakin-Backgound-1920x1080-outline-light.jpg" -o /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
@@ -280,7 +281,7 @@ if [[ "$platform" == "aarch64" ]]; then
     if [[ "$no_fan" == false ]]; then
         echo "Setting up fan control"
         if ! grep -Fq "dtoverlay=gpio-fan" /boot/firmware/config.txt; then
-            echo "dtoverlay=gpio-fan,gpiopin=14,temp=60000" | sudo tee -a /boot/config.txt
+            echo "dtoverlay=gpio-fan,gpiopin=14,temp=60000" | sudo tee -a /boot/firmware/config.txt
         fi
     fi
 fi
