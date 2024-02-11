@@ -14,7 +14,7 @@ This section will go through all the steps to install the required Applications 
 To open the Terminal on Debian, click activities in the top left of the screen and type "Terminal" in the search bar, then click on the Terminal icon.
 ![Gift showing how to open the Terminal](/gifs/setup-linux/OpenTerminal.gif)
 
-*Using a Raspberry Pi? Click the Terminal icon in the taskbar (shown in the Red Box below), or press `Ctrl + Alt + T`*
+*Using a **Raspberry Pi**? Click the Terminal icon in the taskbar (shown in the Red Box below), or press `Ctrl + Alt + T`*
 
 ![Image Showing the Terminal Icon](./images/setup-linux/1-2-setup-pi-Terminal_Icon.png)
 :::
@@ -22,7 +22,7 @@ To open the Terminal on Debian, click activities in the top left of the screen a
 :::tip[Do you sudo?]
 `sudo` is a command that allows you to run a program with superuser privileges and is often required for installing software. Debian does not add the main user to the sudoers file by default.
 
-*On a Raspberry Pi the main user is added to the sudoers file, so this step is not required*
+*On a **Raspberry Pi** the main user is added to the sudoers file, so this step is not required*
 
 The following commands will let you check if your user is in the suders group and add it if required. To take effect, you must reboot your computer after adding your user to the sudoers group.
 
