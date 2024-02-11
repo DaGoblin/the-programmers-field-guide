@@ -40,14 +40,14 @@ function display_help() {
    echo
    echo "Syntax: $0 options"
    echo "options:"
-   echo "-h or --help    Print this Help."
-   echo "--no_vscode     Do not install VS Code."
-   echo "--no_clang      Do not install clang."
-   echo "--no_dotnet     Do not install .NET."
+   echo "-h or --help           Print this Help."
+   echo "--no_vscode            Do not install VS Code."
+   echo "--no_clang             Do not install clang."
+   echo "--no_dotnet            Do not install .NET."
    echo "--splashkit_url=<url>  Specify the url to the splashkit install script."
    echo "--background_light     Specify if the backgound image theme is light. Defualt is dark."
-   echo "--no_zsh        Do not install zsh."
-   echo "--no_fan On Pi Does not set fan control, Defulat is enabled 60 degrees"
+   echo "--no_zsh               Do not install zsh."
+   echo "--no_fan               On Pi Do not enable fan control, Defulat is enabled 60 degrees"
    echo
 }
 
