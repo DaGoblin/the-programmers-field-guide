@@ -139,7 +139,11 @@ Close and reopen the Terminal, then run the command below to build SplashKit:
 
 If prompted, enter your password, type `y`, and press enter to confirm the installation.
 
-![Gif showing skm installing in Terminal](/gifs/setup-linux/SkmLinuxInstall.gif)
+```bash
+skm linux install
+```
+
+![GIF showing skm installation in Terminal](/gifs/setup-linux/SkmLinuxInstall.gif)
 
 :::note
 This may take a while (approx. 10 mins).
