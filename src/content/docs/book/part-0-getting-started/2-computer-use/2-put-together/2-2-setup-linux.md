@@ -6,11 +6,9 @@ sidebar:
   label: " - Linux Box"
 ---
 
-**TODO:** Phil to update
+Linux is an open-source operating system that is widely used for programming and development. Being open-source there are a number of difference versions call distributions (distros) this guide will focus on Debian which is the base for many popular distros such as Ubuntu and Raspberry Pi OS. If you are using a different Linux distro the steps may be slightly different.
 
-Linux is an open-source operating system that is widely used for programming and development. It comes in many different distributions (distros) this guide will focus on debian which is the base for many popular distros such as Ubuntu and Raspberry Pi OS. If you are using a different linux distro the steps may be slightly different.
-
-This section will go through all the steps to install the required Applications and Tools that you will need to code in C# and C++ with SplashKit on Debian and Raspberry Pi. 
+This section will go through all the steps to install the required Applications and Tools that you will need to code in C# and C++ with SplashKit on Debian and Raspberry Pi.
 
 To make things easier we have an automated script for fresh installs that will install all the required tools and applications for you, or you can follow the manual steps.
 
