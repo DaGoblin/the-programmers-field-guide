@@ -89,7 +89,7 @@ Follow the steps below to install the Raspberry Pi OS on the micro SD card:
 
    ![Image showing the Raspberry Pi Update Software screen](./images/setup-pi/1-2-setup-pi-UpdateSoftware.png)
 
-8. Raspberry Pi will now restart.
+8. Click restart.
 
 9. After the reboot you will be presented with the Raspberry Pi Desktop:
 

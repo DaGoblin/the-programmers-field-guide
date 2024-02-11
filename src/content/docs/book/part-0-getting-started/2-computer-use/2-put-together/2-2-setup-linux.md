@@ -143,11 +143,13 @@ If prompted, enter your password, type `y`, and press enter to confirm the insta
 skm linux install
 ```
 
-![GIF showing skm installation in Terminal](/gifs/setup-linux/SkmLinuxInstall.gif)
-
 :::note
 This may take a while (approx. 10 mins).
 :::
+
+![GIF showing skm installation in Terminal](/gifs/setup-linux/SkmLinuxInstall.gif)
+
+
 
 ### 2. Install SplashKit Globally
 
@@ -272,16 +274,6 @@ sudo apt install clang -y
 
 ## 3. Optional Steps
 
-:::tip[What is nano?]
-Nano is a command line text editor that is already installed on Debian. As a quick start, these are the most important commands
-
-- To edit a file in nano use `nano [filename]`
-- navigate the cursor using the arrow keys
-- `Ctrl + O` to save the file
-- `Ctrl + X` to exit the editor
-
-:::
-
 ### Setup zsh shell
 
 When using the terminal, you are actually interacting with a shell, where the default for the Raspberry Pi is **bash**, but other shells are available.
@@ -317,6 +309,16 @@ source ~/.zshrc
 :::
 
 ### Plugins
+
+:::tip[What is nano?]
+Nano is a command line text editor that is already installed on Debian. As a quick start, these are the most important commands
+
+- To edit a file in nano use `nano [filename]`
+- navigate the cursor using the arrow keys
+- `Ctrl + O` to save the file
+- `Ctrl + X` to exit the editor
+
+:::
 
 Several plugins are available for **oh-my-zsh** that add additional functionality to the terminal.  
 [This article](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins) has a list of pre-installed plugins, although there are others available as well.
@@ -407,13 +409,13 @@ For the Raspberry Pi, run the following command in the Terminal to download the 
 For the light image, run the following command:
 
 ```bash
-    sudo pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
+    pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-light.jpg
 ```
 
 For the dark image, run the following command:
 
 ```bash
-    sudo pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
+    pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/Deakin-Backgound-1920x1080-outline-dark.jpg
 ```
 
 ### Raspberry Pi Set Fan Control
